@@ -8,17 +8,22 @@
     <title>Teeworlds map editor</title>
 </head>
 <body>
-    <div class="menu-left">
-        {% for i, group in enumerate(twmap.groups) %}
-            <div class="group">
-                {{ group.name }} #{{ i }}
-                {% for layer in group.layers %}
-                    <div class="layer">
-                        {{ layer.kind() if layer.name == '' else layer.name }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
+    <div class="editor">
+        <div class="menu-left">
+            {% for i, group in enumerate(twmap.groups) %}
+                <div class="group">
+                    {{ group.name }} #{{ i }}
+                    {% for layer in group.layers %}
+                        <div class="layer">
+                            {{ layer.kind() if layer.name == '' else layer.name }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="map">
+        </div>
     </div>
+    <script src="/static/js/map.js"></script>
 </body>
 </html>

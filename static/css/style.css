@@ -4,9 +4,11 @@
 }
 
 .menu-left {
+    position: fixed;
     background-color: rgb(82, 82, 82);
     width: 200px;
     height: 100vh;
+    z-index: 9999;
 }
 
 .group {
@@ -19,4 +21,19 @@
     border-radius: 5px;
     margin-left: 10px;
     height: 1.5em;
+}
+
+.map {
+    border: 10px solid rgb(66, 66, 66);
+    /* 200px margin left to not render the map under the menu */
+    margin-left: 200px;
+    width: calc(16px * 5);
+    height: calc(16px * 5);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.tile {
+    background-color: black;
 }
