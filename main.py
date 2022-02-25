@@ -5,7 +5,6 @@ from flask import render_template, url_for
 
 import numpy
 import twmap
-import json
 
 app = Flask(__name__)
 
