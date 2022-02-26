@@ -2,4 +2,5 @@ venv/
 tags
 tags.lock
 __pycache__/
+data/
 
