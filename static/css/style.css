@@ -37,3 +37,7 @@
 .tile {
     background-size: cover;
 }
+
+.tile:hover {
+    background-color: rgb(47, 250, 47);
+}

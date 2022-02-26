@@ -13,3 +13,5 @@ This project is in very early development! And its not sure yet if it will ever 
 Then goto http://localhost:5000/map in your browser
 
 ![preview](img/preview.png)
+
+![preview gif](img/preview.gif)

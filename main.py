@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
+from crypt import methods
 from flask import Flask
-from flask import render_template, send_from_directory
+from flask import render_template, send_from_directory, request
 
 import os
 from PIL import Image
@@ -12,6 +13,8 @@ import twmap
 from pathlib import Path
 
 app = Flask(__name__)
+
+map_path = '/usr/share/teeworlds/data/maps/dm1.map'
 
 # function by Ivan
 # https://stackoverflow.com/a/65698752
@@ -60,12 +63,12 @@ def index():
 
 @app.route('/map')
 def map():
-    m = twmap.Map('/usr/share/teeworlds/data/maps/dm1.map')
+    m = twmap.Map(map_path)
     return render_template('map.html.j2', twmap = m, enumerate=enumerate)
 
 @app.route('/api/v1/game')
 def api_game():
-    m = twmap.Map('/usr/share/teeworlds/data/maps/dm1.map')
+    m = twmap.Map(map_path)
     game_layer = {
         'tiles': [],
         'width': m.game_layer().width(),
@@ -76,3 +79,13 @@ def api_game():
             continue
         game_layer['tiles'].append((int)(tile))
     return game_layer
+
+@app.route('/api/v1/game/<int:tile>/<int:x>/<int:y>', methods=["POST"])
+def api_set_gametile(tile, x, y):
+    m = twmap.Map(map_path)
+    tiles = m.game_layer().tiles
+    tiles[y][x][0] = tile
+    m.game_layer().tiles = tiles
+    m.save(map_path)
+    app.logger.info(f"set {tile} at {x}/{y}")
+    return {'status': 'ok'}

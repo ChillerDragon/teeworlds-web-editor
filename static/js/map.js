@@ -68,17 +68,33 @@ const renderGameLayer = (game) => {
       y++
     }
   })
+  document.querySelectorAll('.tile').forEach((tileDom) => {
+    tileDom.addEventListener('click', (event) => {
+      const clickedX = parseInt(event.currentTarget.style.gridColumnStart, 10) - 1
+      const clickedY = parseInt(event.currentTarget.style.gridRowStart, 10) - 1
+      event.currentTarget.remove()
+      const url = `/api/v1/game/0/${clickedX}/${clickedY}`
+      fetch(url, { method: 'POST' })
+        .then(res => res.json())
+        .then(data => console.log(data))
+    })
+  })
 }
 
-fetch('/api/v1/game')
-  .then(res => res.json())
-  .then((data) => {
-    console.log(data)
-    // set zoom to cover screen width with map width
-    // on initial load
-    if (latestData == null) {
-      zoom = (window.innerWidth / 16) / data.width
-    }
-    latestData = data
-    renderGameLayer(data)
-  })
+const updateGameLayer = () => {
+  fetch('/api/v1/game')
+    .then(res => res.json())
+    .then((data) => {
+      console.log(data)
+      // set zoom to cover screen width with map width
+      // on initial load
+      if (latestData == null) {
+        zoom = (window.innerWidth / 16) / data.width
+      }
+      latestData = data
+      renderGameLayer(data)
+    })
+}
+
+updateGameLayer()
+setInterval(updateGameLayer, 3000)
