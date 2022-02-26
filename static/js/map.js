@@ -56,8 +56,8 @@ const renderGameLayer = (game) => {
         `<div
           class="tile"
           style="
-            grid-column-start: ${x};
-            grid-row-start: ${y};
+            grid-column-start: ${x + 1};
+            grid-row-start: ${y + 1};
             background-image: url('/entities/DDNet/1/0');
             "
           ></div>`)
